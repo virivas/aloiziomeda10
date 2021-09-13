@@ -8,13 +8,23 @@ var porta = server.porta
 var conexao = bancodedados.conexao
 var documentos = bancodedados.documentos
 
+app.set('view engine',"ejs")
+
+//abrir o form.ejs
 app.get('/',(req,res)=>{
+    res.render("form")
+})
+
+//gravar as informjacoes do formulario form.ejs
+app.post('/gravar',(req,res)=>{
+    var dados = req.body
+
     conexao()
 
     new documentos({
-        mensagem:'teste 09092021',
-        nome:'teste 11h46',
-        cargo:'teste de conexao'
+        mensagem:dados.mensagem,
+        nome:dados.nome,
+        cargo:dados.cargo
     }).save()
     res.send('informações enviadas!')
 })
