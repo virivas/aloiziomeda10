@@ -12,10 +12,15 @@ app.set('view engine',"ejs")
 
 //abrir o form.ejs
 app.get('/',(req,res)=>{
-    res.render("form")
+    conexao()
+    documentos.find()
+    .then((documentos)=>{
+        console.log(documentos)
+        res.render("form",{documentos})
+    })
 })
 
-//gravar as informjacoes do formulario form.ejs
+//gravar as informações do formulário form.ejs
 app.post('/gravar',(req,res)=>{
     var dados = req.body
 
@@ -26,7 +31,8 @@ app.post('/gravar',(req,res)=>{
         nome:dados.nome,
         cargo:dados.cargo
     }).save()
-    res.send('informações enviadas!')
+    //res.send('informações enviadas!')
+    res.redirect('/')
 })
 
 app.listen(porta)
