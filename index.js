@@ -35,4 +35,14 @@ app.post('/gravar',(req,res)=>{
     res.redirect('/')
 })
 
+//excluir uma mensagem
+app.get('/excluir',(req,res)=>{
+    var id = req.query.id
+    conexao()
+    documentos.findOneAndRemove({_id:id}).then((documentos)=>{
+        res.redirect('/')
+    })
+
+})
+
 app.listen(porta)
